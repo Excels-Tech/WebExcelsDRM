@@ -2,10 +2,18 @@ import OpenAI from "openai";
 
 // This is using Replit's AI Integrations service - blueprint:javascript_openai_ai_integrations
 // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
-  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL || process.env.OPENAI_BASE_URL,
-  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY || process.env.OPENAI_API_KEY,
-});
+function createOpenAI(): OpenAI {
+  const apiKey = process.env.AI_INTEGRATIONS_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+  const baseURL = process.env.AI_INTEGRATIONS_OPENAI_BASE_URL || process.env.OPENAI_BASE_URL;
+
+  if (!apiKey) {
+    throw new Error(
+      "Missing OpenAI credentials. Set OPENAI_API_KEY (or AI_INTEGRATIONS_OPENAI_API_KEY) to enable AI."
+    );
+  }
+
+  return new OpenAI({ baseURL, apiKey });
+}
 
 export type UserRole = "Sales Executive" | "Assistant Manager" | "Manager" | "HOD" | "Admin";
 
@@ -84,6 +92,7 @@ export async function generateAssistantResponse(
   conversationHistory: Array<{ role: "user" | "assistant"; content: string }> = []
 ): Promise<string> {
   try {
+    const openai = createOpenAI();
     const systemPrompt = buildSystemPrompt(context);
     
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [

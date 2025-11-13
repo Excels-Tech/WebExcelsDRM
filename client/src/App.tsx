@@ -35,18 +35,20 @@ function AppContent() {
           <SidebarProvider style={style as React.CSSProperties}>
             <div className="flex h-screen w-full">
               <AppSidebar />
-              <div className="flex flex-col flex-1 overflow-hidden">
-                <TopBar
-                  userRole="Sales Executive"
-                  userName="John Doe"
-                  isDark={theme === "dark"}
-                  onThemeToggle={toggleTheme}
-                />
-                <Router />
+              <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-col flex-1 overflow-hidden">
+                  <TopBar
+                    userRole="Sales Executive"
+                    userName="John Doe"
+                    isDark={theme === "dark"}
+                    onThemeToggle={toggleTheme}
+                  />
+                  <Router />
+                </div>
+                <AIAssistantButton />
               </div>
             </div>
           </SidebarProvider>
-          <AIAssistantButton />
           <Toaster />
         </AssistantProvider>
       </TooltipProvider>

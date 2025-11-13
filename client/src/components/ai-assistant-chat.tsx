@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sparkles, Send, X, Loader2, Zap } from "lucide-react";
+import { Sparkles, Send, Loader2, Zap } from "lucide-react";
 import { useAssistant } from "@/contexts/assistant-context";
 import { cn } from "@/lib/utils";
 import { apiRequest } from "@/lib/queryClient";
@@ -118,30 +117,18 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
     setShowSmartPrompts(true);
   }, [currentScreen]);
 
-  if (!isOpen) return null;
-
   return (
-    <Card
-      className="fixed bottom-6 right-6 w-96 h-[600px] shadow-xl z-50 flex flex-col"
+    <div
+      className="h-full flex flex-col bg-background"
       data-testid="card-ai-assistant"
     >
-      <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3 border-b">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <CardTitle className="text-base">WebX-AI Assistant</CardTitle>
+      <div className="flex items-center gap-2 p-4 border-b">
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+          <Sparkles className="w-4 h-4 text-primary-foreground" />
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          data-testid="button-close-assistant"
-        >
-          <X className="w-4 h-4" />
-        </Button>
-      </CardHeader>
-      <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
+        <h2 className="text-base font-semibold">WebX-AI Assistant</h2>
+      </div>
+      <div className="flex-1 flex flex-col p-0 overflow-hidden">
         <ScrollArea className="flex-1 p-4" ref={scrollRef}>
           <div className="space-y-4">
             {showSmartPrompts && messages.length === 1 && (
@@ -227,7 +214,7 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
             </Button>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

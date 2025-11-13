@@ -122,7 +122,7 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
 
   return (
     <Card
-      className="fixed bottom-6 right-6 w-96 h-[600px] shadow-xl z-50 flex flex-col"
+      className="fixed top-0 right-16 h-full w-96 shadow-xl z-50 flex flex-col rounded-none border-l"
       data-testid="card-ai-assistant"
     >
       <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3 border-b">

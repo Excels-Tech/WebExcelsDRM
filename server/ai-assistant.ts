@@ -124,7 +124,8 @@ export async function generateAssistantResponse(
     const response = await openai.chat.completions.create({
       model: "gpt-4.1", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
       messages,
-      max_completion_tokens: 8192,
+      max_completion_tokens: 1000,
+      temperature: 0.3, // Consistent and deterministic responses
     });
 
     return response.choices[0]?.message?.content || "I apologize, but I couldn't generate a response. Please try again.";

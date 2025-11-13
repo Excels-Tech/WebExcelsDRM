@@ -3,10 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sparkles, Send, X, Loader2 } from "lucide-react";
+import { Sparkles, Send, X, Loader2, Zap } from "lucide-react";
 import { useAssistant } from "@/contexts/assistant-context";
 import { cn } from "@/lib/utils";
 import { apiRequest } from "@/lib/queryClient";
+import { getSmartPromptsForScreen } from "@/lib/smart-prompts";
+import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Message {
   role: "user" | "assistant";
@@ -23,14 +30,16 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hello! I'm WebX-AI Assistant, your intelligent guide for WebExcels DRM. I can help you understand features, analyze your data, and suggest next steps based on what you're working on. How can I assist you today?",
+      content: "Hello! I'm WebX-AI Assistant, your intelligent guide for WebExcels DRM. I can help you understand features, analyze your data, and suggest next steps based on what you're working on.\n\nTry the quick prompts below or ask me anything!",
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showSmartPrompts, setShowSmartPrompts] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { currentScreen, userRole, userName, screenData } = useAssistant();
+  const smartPrompts = getSmartPromptsForScreen(currentScreen);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -38,22 +47,23 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
     }
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async (messageText: string) => {
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage: Message = {
       role: "user",
-      content: input,
+      content: messageText,
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setShowSmartPrompts(false);
 
     try {
       const response = await apiRequest("POST", "/api/ai/chat", {
-        message: input,
+        message: messageText,
         context: {
           currentScreen,
           userRole,
@@ -88,12 +98,25 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
     }
   };
 
+  const handleSend = () => {
+    sendMessage(input);
+  };
+
+  const handleSmartPromptClick = (prompt: string) => {
+    sendMessage(prompt);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
+
+  useEffect(() => {
+    // Reset smart prompts when screen changes
+    setShowSmartPrompts(true);
+  }, [currentScreen]);
 
   if (!isOpen) return null;
 
@@ -121,6 +144,33 @@ export function AIAssistantChat({ isOpen, onClose }: AIAssistantChatProps) {
       <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
         <ScrollArea className="flex-1 p-4" ref={scrollRef}>
           <div className="space-y-4">
+            {showSmartPrompts && messages.length === 1 && (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <p className="text-sm font-medium">Quick Actions</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {smartPrompts.map((smartPrompt, idx) => (
+                    <Tooltip key={idx}>
+                      <TooltipTrigger asChild>
+                        <Badge
+                          variant="outline"
+                          className="cursor-pointer hover-elevate"
+                          onClick={() => handleSmartPromptClick(smartPrompt.prompt)}
+                          data-testid={`smart-prompt-${idx}`}
+                        >
+                          {smartPrompt.label}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs max-w-xs">{smartPrompt.prompt}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
+                </div>
+              </div>
+            )}
             {messages.map((message, index) => (
               <div
                 key={index}

@@ -8,16 +8,11 @@ export function AIAssistantButton() {
   return (
     <>
       <div
-        className="fixed top-1/2 -translate-y-1/2 right-0 bg-primary hover-elevate active-elevate-2 cursor-pointer flex flex-col items-center justify-center gap-1 shadow-lg z-40 rounded-l-md px-2 py-4"
+        className="fixed top-1/2 -translate-y-1/2 right-4 w-12 h-12 bg-primary hover-elevate active-elevate-2 cursor-pointer flex items-center justify-center shadow-lg z-40 rounded-xl"
         onClick={() => setIsOpen(!isOpen)}
         data-testid="button-open-ai-assistant"
       >
-        <Sparkles className="w-4 h-4 text-primary-foreground" />
-        <div className="flex flex-col items-center">
-          <span className="text-primary-foreground text-[8px] font-semibold" style={{ writingMode: 'vertical-rl' }}>
-            AI
-          </span>
-        </div>
+        <Sparkles className="w-6 h-6 text-primary-foreground" />
       </div>
 
       <AIAssistantChat isOpen={isOpen} onClose={() => setIsOpen(false)} />

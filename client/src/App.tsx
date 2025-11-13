@@ -7,6 +7,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { TopBar } from "@/components/top-bar";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
+import { AssistantProvider } from "@/contexts/assistant-context";
+import { AIAssistantButton } from "@/components/ai-assistant-button";
 import Dashboard from "@/pages/dashboard";
 import NotFound from "@/pages/not-found";
 
@@ -29,21 +31,24 @@ function AppContent() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <SidebarProvider style={style as React.CSSProperties}>
-          <div className="flex h-screen w-full">
-            <AppSidebar />
-            <div className="flex flex-col flex-1 overflow-hidden">
-              <TopBar
-                userRole="Sales Executive"
-                userName="John Doe"
-                isDark={theme === "dark"}
-                onThemeToggle={toggleTheme}
-              />
-              <Router />
+        <AssistantProvider>
+          <SidebarProvider style={style as React.CSSProperties}>
+            <div className="flex h-screen w-full">
+              <AppSidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <TopBar
+                  userRole="Sales Executive"
+                  userName="John Doe"
+                  isDark={theme === "dark"}
+                  onThemeToggle={toggleTheme}
+                />
+                <Router />
+              </div>
             </div>
-          </div>
-        </SidebarProvider>
-        <Toaster />
+          </SidebarProvider>
+          <AIAssistantButton />
+          <Toaster />
+        </AssistantProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

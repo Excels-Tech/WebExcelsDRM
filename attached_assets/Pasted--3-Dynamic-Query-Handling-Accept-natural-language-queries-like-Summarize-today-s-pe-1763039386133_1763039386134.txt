@@ -1,0 +1,74 @@
+
+3. **Dynamic Query Handling**:
+- Accept natural language queries like:
+  - “Summarize today’s performance”
+  - “Which tasks are overdue?”
+  - “Which leads need follow-up?”
+  - “What did I miss yesterday?”
+- OR respond to UI-triggered quick prompts like:
+  - [Analyze Activity]
+  - [Show Top Customers]
+  - [Daily Summary]
+  - [Pending Verifications]
+
+4. **Strict Boundary Enforcement**:
+- Automatically reject unrelated prompts like:
+  - “Who is the president of Pakistan?”
+  - “What is ChatGPT?”
+- Use this standard response:
+> "I’m designed to assist only within WebExcels DRM. Please ask something related to your current workspace screen."
+
+---
+
+🛠️ Technical Stack:
+
+- Use **OpenAI GPT-4 (or GPT-4o)** via provided API key
+- Temperature: `0.3` for consistent and deterministic replies
+- Max Tokens: `1000`
+- Build a lightweight middleware (Node.js or Python Flask) that:
+- Detects active screen & role
+- Extracts on-screen data into a structured format
+- Constructs system prompt + user query
+- Sends it to OpenAI API and returns formatted response
+
+---
+
+💬 Interface Design:
+
+- Floating or docked assistant widget available on **all screens**
+- Default UI should auto-generate **smart prompts** based on current screen type
+- E.g., On PMS screen: [Show Overdue], [Project Summary]
+- On Training: [Which modules pending?], [My Progress]
+
+- Allow typing natural queries or selecting from smart prompt buttons
+
+---
+
+🔄 Future-Proofing:
+
+- As more modules are added to WebExcels DRM (e.g., HR, Finance, Legal, Procurement, Recruitment, etc.):
+- Simply extend screen detection & data capture
+- No need to rewrite AI core logic
+- Assistant should respond to new screen contexts automatically using the same architecture
+
+---
+
+📦 Example Use Cases:
+
+- **Dashboard Screen**: “How close am I to my target?”
+- **Follow-Up Screen**: “Which customers didn’t reply last week?”
+- **Training Module**: “List incomplete trainings”
+- **Admin Panel**: “How many users were active last week?”
+- **PMS**: “Summarize progress on Project A”
+- **Loan Request Screen**: “How many loans are pending approval?”
+
+---
+
+🔐 API Setup:
+
+- I will provide the OpenAI API key using Replit’s Secrets Manager
+- You may securely call OpenAI’s API with `gpt-4` or `gpt-4o` as backend
+
+---
+
+Start building a scalable, screen-aware, internal-only AI assistant that continuously grows with the WebExcels DRM ecosystem.

@@ -8,7 +8,7 @@ export function AIAssistantButton() {
   return (
     <>
       <div
-        className="fixed top-1/2 -translate-y-1/2 right-4 w-12 h-12 bg-primary hover-elevate active-elevate-2 cursor-pointer flex items-center justify-center shadow-lg z-40 rounded-xl"
+        className="fixed top-1/2 right-6 -translate-y-1/2 w-12 h-12 bg-primary hover-elevate active-elevate-2 cursor-pointer flex items-center justify-center shadow-lg z-40 rounded-xl"
         onClick={() => setIsOpen(!isOpen)}
         data-testid="button-open-ai-assistant"
       >

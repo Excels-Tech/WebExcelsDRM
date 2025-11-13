@@ -1,0 +1,117 @@
+Design a responsive web-based application called "WebExcels DRM" (Data Relation Management System) for organizational role-based management and performance tracking.
+
+Start with these modules and UI components based on the CEO's initial demo:
+
+---
+
+🎯 1. **Role-Based Dashboard System (Sales Executive Focus)**
+
+- Create a login-based dashboard where user roles define visibility and access (e.g., Sales Executive, Assistant Manager, Manager, HOD, Admin).
+- Top bar shows:
+  - Current role (e.g., Sales Executive)
+  - Dropdown for time-based sales views: Today (TD), Weekly (WC), Monthly (MN), Quarterly (QT), Yearly (YR)
+
+- Central dashboard cards:
+  - Total Customers
+  - Contacts Added
+  - New Customers
+  - Renewals (with expiry countdown)
+
+---
+
+📊 2. **Sales Target & Commission Tracker**
+
+- Design a dynamic target panel showing:
+  - Two service types: Alibaba Membership, Value-Added Services (VAS)
+  - Monthly, Quarterly, Half-Yearly, and Yearly targets
+  - Slab-based commission: e.g., 10% for $1k–$49k, 15% for $50k+, etc.
+  - Bonus reward amounts based on achievement
+
+---
+
+📈 3. **Performance Graphs (Lead Progression)**
+
+- Graph module showing daily stats:
+  - Leads Added (LE)
+  - Qualified Leads (QF)
+  - Analyzed Leads (AY)
+  - Invoices Sent, Payments Received
+  - Memberships Achieved
+  - Renewals / Expired / Re-engaged
+- Graph is interactive, showing segment-wise breakdowns
+
+---
+
+📞 4. **Activity Tracker (Time-Logged Reporting)**
+
+- Allow sales execs to log activity types:
+  - Call, WhatsApp, Meeting, Email
+  - Record time spent per activity (in minutes)
+- Generate daily activity reports showing how total working hours are utilized
+
+---
+
+🧠 5. **Customer Follow-up & Grading System**
+
+- Customer list view with:
+  - Company Name, Account ID, Email, Phone
+  - Lead Grade: A+, A-, B+, B-, C+, C, D
+  - Next Follow-Up Date
+  - Project Stage: Lead, Payment Done, Verification, Membership Active
+
+---
+
+🧰 6. **Right-Side Panel & Shortcuts**
+
+- Display:
+  - Promotions banner/slider
+  - VAS graph (Targets vs. Achievements)
+  - Quick entry buttons:
+    - Duplicate Check
+    - Add to Private Pool, Service Pool
+    - BV (Business Verification) Pool
+    - Overtime Request (linked to approval + salary auto-update)
+
+- Public Pool:
+  - List of expired/unassigned leads
+  - Admin-supplied leads from external sources
+
+---
+
+📝 7. **To-Do List Module**
+
+- Daily/Weekly tasks view
+- Task status: Pending, Completed
+- Origin: Self-assigned or Assigned by Manager
+
+---
+
+📚 8. **Left Sidebar Menu (Functional Navigation)**
+
+- Attendance & Leave Tracker
+- Loan Request Form
+- Customer Section:
+  - Duplicate Check
+  - Add Customer
+  - Temporary Contacts
+  - Pools: Private / Service / GM
+- PMS (Project Management System)
+  - Task creation
+  - Project status
+- Workspace & Task Spaces
+- User Reports (Loan, VAS, GM, BV)
+- Training Center (DRM, SEO, Alibaba, etc.)
+
+---
+
+🕒 Later Phase (WAIT for CEO's Additional Input):
+- Deeper logic for private pools
+- HOD, Admin panels
+- Internal team communication features
+- Escalation management
+- Advanced analytics
+- Custom alerts & automations
+
+---
+
+Ensure all UI components follow a clean, grid-based layout with intuitive icons, hover tooltips, and collapsible sidebars. Prioritize modular design for scalability and future role extensions.

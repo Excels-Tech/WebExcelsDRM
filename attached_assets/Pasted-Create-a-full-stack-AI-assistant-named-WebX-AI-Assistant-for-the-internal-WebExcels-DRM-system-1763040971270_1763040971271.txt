@@ -1,0 +1,102 @@
+Create a full-stack AI assistant named **"WebX-AI Assistant"** for the internal WebExcels DRM system. This assistant must be:
+
+✅ Powered by OpenAI GPT-4  
+✅ Embedded in all DRM screens  
+✅ Context-aware: detects current screen/module and user role  
+✅ Data-aware: reads structured screen data for smart replies  
+✅ Internal-only: blocks all external queries  
+✅ Always visible via a toggle icon on the **right-hand side of the app**
+
+---
+
+🧱 Core Architecture
+
+1. **Backend (Node.js with Express):**
+   - Create an `/assistant` POST endpoint
+   - Accept payload:
+     ```json
+     {
+       "screen": "Follow-Up",
+       "role": "Sales Executive",
+       "data": { ...screenData },
+       "userQuery": "Who should I follow up with today?"
+     }
+     ```
+   - Use this to construct a system prompt:
+     ```
+     "You are WebX-AI, a smart assistant built for WebExcels DRM. The user is a [role] viewing the [screen] screen. Use the following data only to answer the user query. Reject anything outside of WebExcels DRM context.
+
+     {screenData as JSON}"
+     ```
+   - Call OpenAI's GPT-4 with temperature 0.3
+   - Return the assistant's reply as JSON
+   - Fallback message for irrelevant queries:
+     > “I'm here only to assist with WebExcels DRM. Please ask about your current screen.”
+
+2. **Secure OpenAI Key Handling:**
+   - Prompt me to enter my `OPENAI_API_KEY` via Replit Secrets
+   - Use it securely inside backend only
+
+---
+
+💬 Assistant Widget (Frontend)
+
+- Add a floating assistant icon (💬 or 🤖) in the **bottom-right corner** of the app
+- When clicked:
+  - Slide in a **right-hand side panel**
+  - Panel contains:
+    - Chat window
+    - Text input
+    - Send button
+    - Smart prompt buttons based on screen context
+
+- Panel must:
+  - Auto-fetch current screen name
+  - Detect user role
+  - Collect visible screen data (table, cards, etc.)
+  - Send all as POST request to `/assistant` backend
+
+- Allow toggling: pressing the icon again should **hide the panel** (slide-out)
+
+---
+
+🎯 Smart Prompt Suggestions (per screen)
+
+- On Dashboard:
+  - [View Targets], [Top Customers], [Target Gap]
+
+- On Follow-Up:
+  - [Who to Call Today?], [Pending Replies], [Ready to Pay]
+
+- On PMS:
+  - [Overdue Tasks], [Project Summary]
+
+- On Training:
+  - [My Progress], [Pending Modules]
+
+---
+
+🔄 Future Expansion:
+
+- Modularize logic so assistant auto-scales as new screens/modules are added
+- Assistant should detect any new screen and adapt its prompt + logic
+- Maintain centralized prompt structure and UI behavior
+
+---
+
+🔐 API Access:
+
+- Ask me for `OPENAI_API_KEY` and set it via Replit Secrets
+- Do not hardcode any keys in frontend
+
+---
+
+🎉 Result:
+
+- AI assistant appears on all WebExcels DRM screens
+- Stays docked on the right-hand side of the app
+- Opens/closes on icon click
+- Gives context-smart responses based on visible data only
+- Blocks all external-world queries
+
+Start building now. I will provide my OpenAI API key via Secrets Manager when prompted.

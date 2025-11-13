@@ -8,17 +8,14 @@ export function AIAssistantButton() {
   return (
     <>
       <div
-        className="fixed top-0 right-0 h-full w-16 bg-primary hover-elevate active-elevate-2 cursor-pointer flex flex-col items-center justify-center gap-3 shadow-lg z-40 border-l border-primary-foreground/10"
+        className="fixed top-1/2 -translate-y-1/2 right-0 bg-primary hover-elevate active-elevate-2 cursor-pointer flex flex-col items-center justify-center gap-2 shadow-lg z-40 rounded-l-lg px-3 py-6"
         onClick={() => setIsOpen(!isOpen)}
         data-testid="button-open-ai-assistant"
       >
-        <Sparkles className="w-8 h-8 text-primary-foreground" />
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-primary-foreground text-xs font-semibold writing-mode-vertical transform rotate-180">
+        <Sparkles className="w-6 h-6 text-primary-foreground" />
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-primary-foreground text-[10px] font-semibold" style={{ writingMode: 'vertical-rl' }}>
             WebX-AI
-          </span>
-          <span className="text-primary-foreground/80 text-xs writing-mode-vertical transform rotate-180">
-            Assistant
           </span>
         </div>
       </div>

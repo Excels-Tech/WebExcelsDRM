@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Link } from "wouter";
+import logoUrl from "@assets/WebExcels Logo_1763037343328.png";
 
 const menuItems = [
   {
@@ -98,9 +99,14 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-base font-semibold px-4 py-3">
-            WebExcels DRM
-          </SidebarGroupLabel>
+          <div className="px-4 py-4 border-b border-sidebar-border">
+            <img 
+              src={logoUrl} 
+              alt="WebExcels" 
+              className="h-10 w-auto"
+              data-testid="img-logo"
+            />
+          </div>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) =>

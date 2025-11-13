@@ -8,7 +8,9 @@ export default function AppSidebarExample() {
 
   return (
     <SidebarProvider style={style as React.CSSProperties}>
-      <AppSidebar />
+      <div className="h-screen">
+        <AppSidebar />
+      </div>
     </SidebarProvider>
   );
 }

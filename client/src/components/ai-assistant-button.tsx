@@ -17,7 +17,7 @@ export function AIAssistantButton() {
         <TooltipTrigger asChild>
           <Button
             size="icon"
-            className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg z-40"
+            className="fixed top-1/2 right-6 -translate-y-1/2 w-14 h-14 rounded-full shadow-lg z-40"
             onClick={() => setIsOpen(!isOpen)}
             data-testid="button-open-ai-assistant"
           >
